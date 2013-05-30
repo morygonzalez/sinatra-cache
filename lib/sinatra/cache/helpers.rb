@@ -387,7 +387,10 @@ module Sinatra
       # ... would use the same cached fragment.
       #
       # @api public
-      def cache_fragment(fragment_name, shared = nil, &block)
+      def cache_fragment(fragment_name, options={}, &block)
+        shared     = options[:shared]     || nil
+        expires_in = options[:expires_in] || 15.minutes
+
         # 1. check for a block, there must always be a block
         raise ArgumentError, "Missing block" unless block_given?
 
@@ -404,7 +407,7 @@ module Sinatra
         FileUtils.mkdir_p(File.dirname(cf)) rescue "ERROR: could NOT create the cache directory: [ #{File.dirname(cf)} ]"
 
         # 3. check if the fragment is already cached ?
-        if test(?f, cf)
+        if test(?f, cf) && Time.now - File.open(cf).mtime < expires_in
           # 4. yes. cached, so load it up into the ERB buffer .  Sorry, don't know how to do this for Haml or any others.
           block_content = IO.read(cf)
         else
