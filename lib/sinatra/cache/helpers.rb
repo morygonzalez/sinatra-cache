@@ -407,7 +407,7 @@ module Sinatra
         FileUtils.mkdir_p(File.dirname(cf)) rescue "ERROR: could NOT create the cache directory: [ #{File.dirname(cf)} ]"
 
         # 3. check if the fragment is already cached ?
-        if test(?f, cf) && Time.now - File.open(cf).mtime < expires_in
+        if test(?f, cf) && Time.now - test(?M, cf) < expires_in
           # 4. yes. cached, so load it up into the ERB buffer .  Sorry, don't know how to do this for Haml or any others.
           block_content = IO.read(cf)
         else
