@@ -1,5 +1,5 @@
 module Sinatra
   module Cache
-    VERSION = "0.0.1"
+    VERSION = "0.3.7"
   end
 end
