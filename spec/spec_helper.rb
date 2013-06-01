@@ -41,13 +41,8 @@ end
 
 class MyTestApp < Sinatra::Base
   set :app_dir, "#{APP_ROOT}/apps/base"
-  set :public, "#{fixtures_path}/public"
+  set :public_dir, "#{fixtures_path}/public"
   set :views, "#{app_dir}/views"
 
   enable :raise_errors
 end #/class MyTestApp
-
-
-class Test::Unit::TestCase
-  Sinatra::Base.set :environment, :test
-end
