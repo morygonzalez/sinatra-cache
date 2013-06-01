@@ -11,6 +11,7 @@ doc/
 lib/bundler/man
 spec/reports
 tmp
+vendor/
 
 ## OS STUFF
 .DS_Store
