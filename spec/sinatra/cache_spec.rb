@@ -84,7 +84,7 @@ describe "Sinatra" do
 
     # convenience shared spec that sets up MyTestApp and tests it's OK,
     # without it you will get "stack level too deep" errors
-    it_should_behave_like "MyTestApp"
+    # it_should_behave_like "MyTestApp"
 
     # it_should_behave_like "debug => app.methods"
 
@@ -542,10 +542,8 @@ describe "Sinatra" do
         describe "with :cache_fragments_wrap_with_html_comments enabled" do
           class MyWrapTestApp < Sinatra::Base
             set :app_dir, "#{APP_ROOT}/apps/base"
-            set :public, "#{fixtures_path}/public"
+            set :public_dir, "#{fixtures_path}/public"
             set :views, "#{app_dir}/views"
-
-            register(Sinatra::Tests)
 
             enable :raise_errors
 
@@ -697,8 +695,6 @@ describe "Sinatra" do
         require 'sinatra/outputbuffer'
 
         class MyPartialsTestApp < Sinatra::Base
-          register(Sinatra::Tests)
-
           enable :raise_errors
 
           register(Sinatra::OutputBuffer)
@@ -707,7 +703,7 @@ describe "Sinatra" do
           # need to set the root of the app for the default :cache_fragments_output_dir to work
           set :root, ::APP_ROOT
           set :app_dir, "#{APP_ROOT}/apps/partials"
-          set :public, "#{fixtures_path}/public"
+          set :public_dir, "#{fixtures_path}/public"
           set :views, "#{APP_ROOT}/apps/partials/views"
 
           set :cache_enabled, true
