@@ -14,10 +14,12 @@ With that said, on to the real stuff.
 
 ## Installation
 
-  #  Add RubyGems.org (former Gemcutter) to your RubyGems sources
-  $  gem sources -a http://rubygems.org
+```sh
+#  Add RubyGems.org (former Gemcutter) to your RubyGems sources
+$  gem sources -a http://rubygems.org
 
-  $  (sudo)? gem install sinatra-cache
+$  (sudo)? gem install sinatra-cache
+```
 
 ## Dependencies
 
@@ -49,34 +51,38 @@ Optionals:
 To start caching your app's ouput, just require and register
 the extension in your sub-classed Sinatra app:
 
-    require 'sinatra/cache'
+```ruby
+require 'sinatra/cache'
 
-    class YourApp < Sinatra::Base
+class YourApp < Sinatra::Base
 
-      # NB! you need to set the root of the app first
-      set :root, '/path/2/the/root/of/your/app'
+  # NB! you need to set the root of the app first
+  set :root, '/path/2/the/root/of/your/app'
 
-      register(Sinatra::Cache)
+  register(Sinatra::Cache)
 
-      set :cache_enabled, true  # turn it on
+  set :cache_enabled, true  # turn it on
 
-      <snip...>
+  <snip...>
 
-    end
+end
+```
 
 In your "classic" Sinatra app, you just require the extension and set some key settings, like this:
 
-    require 'rubygems'
-    require 'sinatra'
-    require 'sinatra/cache'
+```ruby
+require 'rubygems'
+require 'sinatra'
+require 'sinatra/cache'
 
-    # NB! you need to set the root of the app first
-    set :root, '/path/2/the/root/of/your/app'
-    set :public, '/path/2/public'
+# NB! you need to set the root of the app first
+set :root, '/path/2/the/root/of/your/app'
+set :public, '/path/2/public'
 
-    set :cache_enabled, true  # turn it on
+set :cache_enabled, true  # turn it on
 
-    <snip...>
+<snip...>
+```
 
 That's more or less it.
 
@@ -147,47 +153,49 @@ By default caching only happens in <tt>:production</tt> mode, and via the Sinatr
 
 So asuming we have the following setup (continued from above)
 
-    class YourApp
+```ruby
+class YourApp
 
-      <snip...>
+  <snip...>
 
-      set :cache_output_dir, "/full/path/2/app/root/public/system/cache"
+  set :cache_output_dir, "/full/path/2/app/root/public/system/cache"
 
-      <snip...>
+  <snip...>
 
-      get('/') { erb(:index) }            # => cached as '../index.html'
+  get('/') { erb(:index) }            # => cached as '../index.html'
 
-      get('/contact') { erb(:contact) }   # => cached as '../contact.html'
+  get('/contact') { erb(:contact) }   # => cached as '../contact.html'
 
-      # NB! the trailing slash on the URL
-      get('/about/') { erb(:about) }      # => cached as '../about/index.html'
+  # NB! the trailing slash on the URL
+  get('/about/') { erb(:about) }      # => cached as '../about/index.html'
 
-      get('/feed.rss') { builder(:feed) }  # => cached as '../feed.rss'
-      # NB! uses the extension of the passed URL,
-      # but DOES NOT ensure the format of the content based on the extension provided.
+  get('/feed.rss') { builder(:feed) }  # => cached as '../feed.rss'
+  # NB! uses the extension of the passed URL,
+  # but DOES NOT ensure the format of the content based on the extension provided.
 
-      # complex URL with multiple possible params
-      get %r{/articles/?([\s\w-]+)?/?([\w-]+)?/?([\w-]+)?/?([\w-]+)?/?([\w-]+)?/?([\w-]+)?}  do
-        erb(:articles)
-      end
-      # with the '/articles/a/b/c  => cached as ../articles/a/b/c.html
+  # complex URL with multiple possible params
+  get %r{/articles/?([\s\w-]+)?/?([\w-]+)?/?([\w-]+)?/?([\w-]+)?/?([\w-]+)?/?([\w-]+)?}  do
+    erb(:articles)
+  end
+  # with the '/articles/a/b/c  => cached as ../articles/a/b/c.html
 
-      # NB! the trailing slash on the URL
-      # with the '/articles/a/b/c/  => cached as ../articles/a/b/c/index.html
+  # NB! the trailing slash on the URL
+  # with the '/articles/a/b/c/  => cached as ../articles/a/b/c/index.html
 
-      # CSS caching via Sass  # => cached as '.../css/screen.css'
-      get '/css/screen.css' do
-        content_type 'text/css'
-        sass(:'css/screen')
-      end
+  # CSS caching via Sass  # => cached as '.../css/screen.css'
+  get '/css/screen.css' do
+    content_type 'text/css'
+    sass(:'css/screen')
+  end
 
-      # to turn off caching on certain pages.
-      get('/dont/cache/this/page') { erb(:aview, :cache => false) }   # => is NOT cached
+  # to turn off caching on certain pages.
+  get('/dont/cache/this/page') { erb(:aview, :cache => false) }   # => is NOT cached
 
-      # NB! any query string params - [ /?page=X&id=y ] - are stripped off and TOTALLY IGNORED
-      # during the caching process.
+  # NB! any query string params - [ /?page=X&id=y ] - are stripped off and TOTALLY IGNORED
+  # during the caching process.
 
-    end
+end
+```
 
 OK, that's about all you need to know about basic Page Caching right there. Read the above example
 carefully until you understand all the variations.
@@ -196,17 +204,21 @@ carefully until you understand all the variations.
 
 If you just need to cache a fragment of a page, then you'd do as follows:
 
-    class YourApp
+```ruby
+class YourApp
 
-      set :cache_fragments_output_dir, "/full/path/2/fragments/store/location"
+  set :cache_fragments_output_dir, "/full/path/2/fragments/store/location"
 
-    end
+end
+```
 
 Then in your views / layouts add the following:
 
-    <% cache_fragment(:name_of_fragment) do %>
-      # do something worth caching
-    <% end %>
+```erb
+<% cache_fragment(:name_of_fragment) do %>
+  # do something worth caching
+<% end %>
+```
 
 Each fragment is stored in the same directory structure as your request
 so, if you have a request like this:
@@ -238,9 +250,11 @@ So given the URL:
 
 and the following <tt>#cache_fragment</tt> declaration in your view
 
-    <% cache_fragment(:name_of_fragment, shared:, true) do %>
-      # do something worth caching
-    <% end %>
+```erb
+<% cache_fragment(:name_of_fragment, shared:, true) do %>
+  # do something worth caching
+<% end %>
+```
 
 ...the cached fragment would be stored as:
 
@@ -252,9 +266,11 @@ Any other URLs with would use the same cached fragment.
 
 When you pass `:expires_in` option, you can set cache expiration time.
 
-    <% cache_fragment :name_of_fragment, expires_in: 300 do %>
-      # do something worth caching
-    <% end %>
+```erb
+<% cache_fragment :name_of_fragment, expires_in: 300 do %>
+  # do something worth caching
+<% end %>
+```
 
 If you don't set any, default expiration time is 900 seconds (15 minutes).
 
@@ -262,18 +278,22 @@ If you don't set any, default expiration time is 900 seconds (15 minutes).
 
 To expire a cached item - file or fragment you use the :cache_expire() method.
 
-    cache_expire('/contact')  =>  expires ../contact.html
+```ruby
+cache_expire('/contact')  =>  expires ../contact.html
 
-    # NB! notice the trailing slash
-    cache_expire('/contact/')  =>  expires ../contact/index.html
+# NB! notice the trailing slash
+cache_expire('/contact/')  =>  expires ../contact/index.html
 
-    cache_expire('/feed.rss')  =>  expires ../feed.rss
+cache_expire('/feed.rss')  =>  expires ../feed.rss
+```
 
 To expire a cached fragment:
 
-    cache_expire('/some/path', :fragment => :name_of_fragment )
+```ruby
+cache_expire('/some/path', :fragment => :name_of_fragment )
 
-      =>  expires ../some/path/:name_of_fragment.html
+  =>  expires ../some/path/:name_of_fragment.html
+```
 
 ## A few important points to consider
 
@@ -288,33 +308,37 @@ Let's say you have a URL like this:
 and then inside that template [ .../views/products.erb ], you use the <tt>params[:product_id]</tt>
 param passed in for some purpose.
 
-    <ul>
-      <li>Product ID: <%= params[:product_id] %></li>  # => 111
-      ...
-    </ul>
+```erb
+<ul>
+  <li>Product ID: <%= params[:product_id] %></li>  # => 111
+  ...
+</ul>
+```
 
 If you cache this URL, then the cached file [ ../cache/products.html ] will be stored with that
 value embedded. Obviously not ideal for any other similar URLs with different <tt>product_id</tt>'s
 
 To overcome this issue, use either of these two methods.
 
-    # in your_app.rb
+```ruby
+# in your_app.rb
 
-    # turning off caching on this page
+# turning off caching on this page
 
-      get '/products/' do
-        ...
-        erb(:products, :cache => false)
-      end
+  get '/products/' do
+    ...
+    erb(:products, :cache => false)
+  end
 
-    # or
+# or
 
-    # rework the URLs to something like '/products/111 '
+# rework the URLs to something like '/products/111 '
 
-    get '/products/:product_id' do
-      ...
-      erb(:products)
-    end
+get '/products/:product_id' do
+  ...
+  erb(:products)
+end
+```
 
 Thats's about all the information you need to know.
 
@@ -344,9 +368,11 @@ Report it here: http://github.com/kematzy/sinatra-cache/issues
 * Enable .gz version of the cached file, further reducing the processing on the server. [ht oakleafs]
   It would be killer to have <b>an extra .gz file next to the cached file</b>. That way, in Apache, you set it up like that:
 
+```apache
     RewriteCond %{HTTP:Accept-Encoding} gzip
     RewriteCond %{REQUEST_FILENAME}.gz$ -f
     RewriteRule ^(.*)$ $1.gz [L,QSA]
+```
 
   And it should serve the compressed file if available.
 
