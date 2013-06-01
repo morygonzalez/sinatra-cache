@@ -1,4 +1,3 @@
-
 module Sinatra
 
   # = Sinatra::Cache
@@ -224,8 +223,10 @@ module Sinatra
   # each of the articles would cache it's own fragment, which is ineffecient.
   #
   # To sort-of deal with this limitation I have temporarily added a very hackish
-  # 'fix' through adding a 2nd parameter (see example below), which will remove the
-  # last part of the URL and use the rest of the URL as the stored fragment path.
+  # 'fix' through adding a otion parameter (see example below), which will store
+  # fragment cache to the location below.
+  #
+  #  ../tmp/cache_fragments/shared/
   #
   # So given the URL:
   #
@@ -233,25 +234,27 @@ module Sinatra
   #
   # and the following <tt>#cache_fragment</tt> declaration in your view
   #
-  #   <% cache_fragment(:name_of_fragment, :shared) do %>
+  #   <% cache_fragment(:name_of_fragment, shared:, true) do %>
   #     # do something worth caching
   #   <% end %>
   #
   # ...the cached fragment would be stored as:
   #
-  #   ../tmp/cache_fragments/articles/2010/02/< name_of_fragment >.html
+  #   ../tmp/cache_fragments/shared/< name_of_fragment >.html
   #
-  # Any other URLs with the same URL root, like...
+  # Any other URLs with would use the same cached fragment.
   #
-  #   get '/articles/2010/02/writing-sinatra-extensions' ...
-  #
-  # ... would use the same cached fragment.
-  #
-  #
-  # <b>NB!</b> currently only supports one level, but Your fork might fix that ;-)
   #
   #
   # == Cache Expiration
+  #
+  # When you pass `:expires_in` option, you can set cache expiration time.
+  #
+  #   <% cache_fragment :name_of_fragment, expires_in: 300 do %>
+  #     # do something worth caching
+  #   <% end %>
+  #
+  # If you don't set any, default expiration time is 900 seconds (15 minutes).
   #
   # <b>Under development, and not entirely final.</b> See Todo's below for more info.
   #
