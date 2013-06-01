@@ -9,9 +9,22 @@ _yardoc
 coverage
 doc/
 lib/bundler/man
-pkg
-rdoc
 spec/reports
-test/tmp
-test/version_tmp
 tmp
+
+## OS STUFF
+.DS_Store
+
+## TM SPECIFIC
+*.tmproj
+tmtags
+
+## PROJECT::GENERAL
+*.sw?
+coverage
+rdoc
+pkg
+doc
+
+## PROJECT::SPECIFIC
+spec/fixtures/public/*
