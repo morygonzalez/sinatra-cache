@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["kematzy","森井ゴンザレス"]
   spec.email         = ["kematzy@gmail.com", "morygonzalez@gmail.com"]
   spec.description   = %q{A Sinatra Extension that makes Page and Fragment Caching easy.}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.summary       = %q{A Sinatra Extension that makes Page and Fragment Caching easy.}
   spec.homepage      = "https://github.com/morygonzalez/sinatra-cache"
 
   spec.files         = `git ls-files`.split($/)
