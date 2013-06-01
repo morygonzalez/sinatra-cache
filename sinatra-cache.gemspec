@@ -19,8 +19,10 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
-  spec.add_runtime_dependency(%q<sinatra>, [">= 1.1.0"])
-  spec.add_runtime_dependency(%q<sinatra-outputbuffer>, [">= 0.1.0"])
-  spec.add_development_dependency(%q<sinatra-tests>, [">= 0.1.6"])
-  spec.add_development_dependency(%q<rspec>, [">= 1.3.0"])
+  spec.add_runtime_dependency(%q<sinatra>)
+  spec.add_runtime_dependency(%q<sinatra-outputbuffer>)
+  spec.add_development_dependency(%q<rspec>)
+  spec.add_development_dependency(%q<haml>)
+  spec.add_development_dependency(%q<sass>)
+  spec.add_development_dependency(%q<json>)
 end
