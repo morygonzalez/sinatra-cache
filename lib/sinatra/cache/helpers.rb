@@ -1,5 +1,4 @@
 module Sinatra
-
   # = Sinatra::Cache
   #
   # A Sinatra Extension that makes Page and Fragment Caching easy wthin your Sinatra apps.
@@ -328,9 +327,7 @@ module Sinatra
   #
   #
   module Cache
-
     module Helpers
-
       ##
       # This method either caches the code fragment and then renders it,
       # or locates the cached fragement and renders that.
@@ -433,7 +430,6 @@ module Sinatra
       # for future versions once old habits are gone
       # alias_method :cache, :cache_fragment
 
-
       ##
       # <b>NB!! Deprecated method.</b>
       #
@@ -443,7 +439,6 @@ module Sinatra
         warn("Deprecated method, caching is now happening by default if the :cache_enabled option is true")
         content
       end
-
 
       ##
       # Expires the cached file (page) or fragment.
@@ -481,7 +476,6 @@ module Sinatra
         end
       end
 
-
       ##
       # Prints a basic HTML comment with a timestamp in it, so that you can see when a file was cached last.
       #
@@ -502,10 +496,8 @@ module Sinatra
       alias_method :cache_page_timestamp, :cache_timestamp
       alias_method :page_cached_at, :cache_timestamp
 
-
       ## PRIVATE METHODS
       private
-
         ##
         # Converts the PATH_INFO path into the full cached file path.
         #
@@ -535,7 +527,6 @@ module Sinatra
         # @api public
         def cache_file_path(in_path = nil)
           path = settings.send(:cache_output_dir).dup
-
 
           path_info = in_path.nil? ? request.path_info : in_path
           if (path_info.empty? || path_info == "/" )
@@ -608,10 +599,7 @@ module Sinatra
             end
           end
         end
-
-
     end #/ Helpers
-
 
     ##
     # The default options:
@@ -653,7 +641,6 @@ module Sinatra
       app.set :cache_logging, true
       app.set :cache_logging_level, :info
 
-
       ## add the extension specific options to those inspectable by :settings_inspect method
       if app.respond_to?(:sinatra_settings_for_inspection)
         %w( cache_enabled cache_environment cache_page_extension cache_output_dir
@@ -663,11 +650,8 @@ module Sinatra
           app.sinatra_settings_for_inspection << m
         end
       end
-
     end #/ self.registered
-
   end #/ Cache
 
   register(Sinatra::Cache) # support classic apps
-
 end #/ Sinatra
