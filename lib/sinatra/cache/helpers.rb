@@ -399,7 +399,6 @@ module Sinatra
         # if we are sharing this fragment with other URLs (as in the all the articles in a category of a blog)
         # then lob off the last part of the URL
         unless shared.nil?
-          dirs = dir_structure.split('/')
           dir_structure = 'shared'
         end
         cf = "#{settings.cache_fragments_output_dir}/#{dir_structure}/#{fragment_name}.html"
@@ -425,7 +424,7 @@ module Sinatra
           cache_write_file(cf, content_2_cache)
         end
         # 5. 'return' the content by
-        block_is_template?(block) ? concat_content(block_content) : block_content
+        block_is_template?(block) ? concat_safe_content(block_content) : block_content
       end
       # for future versions once old habits are gone
       # alias_method :cache, :cache_fragment
