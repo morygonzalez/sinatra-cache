@@ -408,7 +408,7 @@ module Sinatra
         # 3. check if the fragment is already cached ?
         if test(?f, cf) && Time.now - test(?M, cf) < expires_in
           # 4. yes. cached, so load it up into the ERB buffer .  Sorry, don't know how to do this for Haml or any others.
-          block_content = IO.read(cf)
+          block_content = IO.read(cf, encoding: 'UTF-8')
         else
           # 4. not cached, so process the block and then cache it
           block_content = capture_html(&block) if block_given?
