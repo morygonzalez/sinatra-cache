@@ -6,11 +6,11 @@ require 'sinatra/cache/version'
 Gem::Specification.new do |spec|
   spec.name          = "sinatra-cache"
   spec.version       = Sinatra::Cache::VERSION
-  spec.authors       = ["kematzy","森井ゴンザレス"]
-  spec.email         = ["kematzy@gmail.com", "morygonzalez@gmail.com"]
+  spec.authors       = ["kematzy"]
+  spec.email         = ["kematzy@gmail.com"]
   spec.description   = %q{A Sinatra Extension that makes Page and Fragment Caching easy.}
   spec.summary       = %q{A Sinatra Extension that makes Page and Fragment Caching easy.}
-  spec.homepage      = "https://github.com/morygonzalez/sinatra-cache"
+  spec.homepage      = "https://github.com/kematzy/sinatra-cache"
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
@@ -20,7 +20,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
   spec.add_runtime_dependency(%q<sinatra>)
-  spec.add_runtime_dependency(%q<sinatra-outputbuffer>)
   spec.add_development_dependency(%q<rspec>)
   spec.add_development_dependency(%q<haml>)
   spec.add_development_dependency(%q<sass>)

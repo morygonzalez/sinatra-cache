@@ -17,7 +17,6 @@ module Sinatra
   # === Runtime:
   #
   # * sinatra ( >= 1.0.a )
-  # * sinatra-outputbuffer[http://github.com/kematzy/sinatra-outputbuffer] (>= 0.1.0)
   #
   # Optionals:
   #
@@ -626,7 +625,6 @@ module Sinatra
     #
     #
     def self.registered(app)
-      app.register(Sinatra::OutputBuffer)
       app.helpers Cache::Helpers
 
       ## CONFIGURATIONS::

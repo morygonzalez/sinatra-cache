@@ -28,7 +28,6 @@ This Gem depends upon the following:
 ### Runtime:
 
 * sinatra ( >= 1.0.a )
-* sinatra-outputbuffer[http://github.com/kematzy/sinatra-outputbuffer] (>= 0.1.0)
 
 Optionals:
 

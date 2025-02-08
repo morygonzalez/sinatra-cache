@@ -692,12 +692,10 @@ describe "Sinatra" do
 
     describe "EDGE cases" do
       describe "Using nested buffers" do
-        require 'sinatra/outputbuffer'
 
         class MyPartialsTestApp < Sinatra::Base
           enable :raise_errors
 
-          register(Sinatra::OutputBuffer)
           register(Sinatra::Cache)
 
           # need to set the root of the app for the default :cache_fragments_output_dir to work
